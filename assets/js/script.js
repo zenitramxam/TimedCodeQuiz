@@ -1,49 +1,3 @@
-var startQzBut = document.getElementById('startQz')
-var homeTitle = document.getElementById('title')
-var homeInfo = document.getElementById('info')
-var newQstnBox = document.getElementById('questionsBox')
-var questionEl = document.getElementById('questions')
-var opt1 = document.getElementById('btn1')
-var opt2 = document.getElementById('btn2')
-var opt3 = document.getElementById('btn3')
-var opt4 = document.getElementById('btn4')
-
-
-
-var questionNum = 0;
-var quesIndex = 0;
-var answer;
-
-startQzBut.addEventListener('click', startQuiz)
-
-
-function startQuiz() {
-    console.log('Quiz has begun')
-    startQzBut.classList.add('hide')
-    homeTitle.classList.add('hide')
-    homeInfo.classList.add('hide')
-
-    newQstnBox.classList.remove('hide')
-    showQuestion()
-}
-
-function next() {
-
-}
-
-function showQuestion() {
-
-    questionEl.innerText = quests[quesIndex].ques;
-    opt1.textContent = quests[quesIndex].choices[0];
-    opt2.textContent = quests[quesIndex].choices[1];
-    opt3.textContent = quests[quesIndex].choices[2];
-    opt4.textContent = quests[quesIndex].choices[3];
-}
-
-function selAnsr() {
-
-}
-
 var quests = [
     {
         ques: "Commonly used data types DO NOT include: ",
@@ -75,3 +29,71 @@ var quests = [
         answer: "4.console.log"
     },
 ];
+
+var startQzBut = document.getElementById('startQz')
+var homeTitle = document.getElementById('title')
+var homeInfo = document.getElementById('info')
+var newQstnBox = document.getElementById('questionsBox')
+var questionEl = document.getElementById('questions')
+
+var opt1 = document.getElementById('btn1')
+var opt2 = document.getElementById('btn2')
+var opt3 = document.getElementById('btn3')
+var opt4 = document.getElementById('btn4')
+var answrcheck = document.getElementById('check')
+
+var correctpoint = 0;
+var questionNum = 0;
+var quesIndex = 0;
+
+startQzBut.addEventListener('click', startQuiz)
+opt1.addEventListener('click', chose1) ;
+opt2.addEventListener('click', chose2) ;
+opt3.addEventListener('click', chose3) ;
+opt4.addEventListener('click', chose4) ;
+
+function startQuiz() {
+    quesIndex = 0;
+    console.log('Quiz has begun')
+    startQzBut.classList.add('hide')
+    homeTitle.classList.add('hide')
+    homeInfo.classList.add('hide')
+
+    newQstnBox.classList.remove('hide')
+    nextQues()
+}
+
+function nextQues() {
+
+    questionEl.innerText = quests[quesIndex].ques;
+    opt1.textContent = quests[quesIndex].choices[0];
+    opt2.textContent = quests[quesIndex].choices[1];
+    opt3.textContent = quests[quesIndex].choices[2];
+    opt4.textContent = quests[quesIndex].choices[3];
+}
+
+function checkAn(answer) {
+    answrcheck.style.display = "block";
+
+    if (quests[quesIndex].answer === quests[quesIndex].choices[answer]) {
+        correctpoint++;
+        answrcheck.textContent = "Correct!";
+    }
+    else {
+        answrcheck.textContent = "Wrong!";
+    }
+
+    quesIndex++;
+
+    if (quesIndex < quests.length) {
+        nextQues();
+    }
+    else {
+        allDone();
+    }
+}
+
+function chose1() { checkAn(0); }
+function chose2() { checkAn(1); }
+function chose3() { checkAn(2); }
+function chose4() { checkAn(3); }
