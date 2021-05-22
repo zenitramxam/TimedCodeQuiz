@@ -35,16 +35,21 @@ var homeTitle = document.getElementById('title')
 var homeInfo = document.getElementById('info')
 var newQstnBox = document.getElementById('questionsBox')
 var questionEl = document.getElementById('questions')
+var finishedQz = document.getElementById('done')
 
-var opt1 = document.getElementById('btn1')
-var opt2 = document.getElementById('btn2')
-var opt3 = document.getElementById('btn3')
-var opt4 = document.getElementById('btn4')
+var opt1 = document.getElementById('but1')
+var opt2 = document.getElementById('but2')
+var opt3 = document.getElementById('but3')
+var opt4 = document.getElementById('but4')
 var answrcheck = document.getElementById('check')
+var final = document.getElementById('finalScore')
 
 var correctpoint = 0;
 var questionNum = 0;
 var quesIndex = 0;
+
+var submitBtn = document.getElementById('subBut')
+var initialIn = document.getElementById('initInput')
 
 startQzBut.addEventListener('click', startQuiz)
 opt1.addEventListener('click', chose1) ;
@@ -89,7 +94,7 @@ function checkAn(answer) {
         nextQues();
     }
     else {
-        allDone();
+        doneQuiz();
     }
 }
 
@@ -97,3 +102,10 @@ function chose1() { checkAn(0); }
 function chose2() { checkAn(1); }
 function chose3() { checkAn(2); }
 function chose4() { checkAn(3); }
+
+function doneQuiz() {
+
+    finishedQz.classList.remove('hide')
+    newQstnBox.classList.add('hide')
+    final.textContent = correctpoint;
+}

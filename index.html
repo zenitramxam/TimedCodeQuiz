@@ -16,14 +16,14 @@
 </header>
 
 <body>
-    <div class="container">
+    <div class="quiz">
       <div id="questionsBox" class="hide">
         <h2 id="questions">Ask a question</h2>
           <div id="options">
-            <button id=btn1 class="but">1. Answer </button>
-            <button id=btn2 class="but">2. Answer</button>
-            <button id=btn3 class="but">3. Answer</button>
-            <button id=btn4 class="but">4. Answer</button>
+            <button id=but1 class="but">1. Answer </button>
+            <button id=but2 class="but">2. Answer</button>
+            <button id=but3 class="but">3. Answer</button>
+            <button id=but4 class="but">4. Answer</button>
             <p id="check"></p>
           </div>
       </div>
@@ -34,8 +34,26 @@
           Keep in mind that incorrect answers will penalize your score/time by ten seconds!
       </p>
       <div class="cntrl">
-        <button id="startQz" class="hid">Start Quiz</button>
+        <button id="startQz">Start Quiz</button>
       </div>
+    </div>
+    <div id="done" class="hide">
+      <h2>All done!</h2>
+        <p class="endInfo">Your final score is <div id="finalScore"> .</div></p>
+      <form>
+          <p class="init">Enter initials: <input id="initInput" type="text">
+          <button type="submit" id="subBut" class="but">Submit</button>
+          </p>
+      </form>
+    </div>
+    <div id="highScore" class="hide">
+        <h2 class="high">Highscores</h2>
+        <div id="listOf"></div>
+
+        <p>
+            <button type="submit" id="goBack">Go Back</button>
+            <button type="submit" id="clearHi">Clear Highscores</button>
+        </p>
     </div>
     <script src="assets/js/script.js"></script>
 </body>
