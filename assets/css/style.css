@@ -27,9 +27,18 @@
     background: violet;
 }
 
+#title{
+    padding-top: 3%;
+}
+
+#info{
+    padding-top: 2%;
+}
+
 .cntrl{
     display: flex;
     justify-content: center;
+    margin-top: 3%;
 }
 
 #startQz{
@@ -43,9 +52,17 @@
     background: violet;
 }
 
+#home{
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 540px;
+}
+
 .hide {
     display: none;
 }
+
 
 /*
 #home{
