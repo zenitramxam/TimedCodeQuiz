@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Coding Quiz Challenge</title>
 </head>
-<header class="top">
-    <a href>View Highscores</a>
-    <div class="timer">
+<header>
+    <a href="#" id="viewScore">View Highscores</a>
+    <div id="timer">
         <div class="timeTxt">Time: </div>
-        <div class="timer_sec">75</div>
+        <div id="timer_sec">75</div>
     </div>
 </header>
 
@@ -39,7 +38,7 @@
     </div>
     <div id="done" class="hide">
       <h2>All done!</h2>
-        <p class="endInfo">Your final score is <div id="finalScore"> .</div></p>
+        <p class="endInfo">Your final score is <div id="finalScore"></div></p>
       <form>
           <p class="init">Enter initials: <input id="initInput" type="text">
           <button type="submit" id="subBut" class="but">Submit</button>

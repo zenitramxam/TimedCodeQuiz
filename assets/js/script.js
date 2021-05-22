@@ -1,3 +1,30 @@
+var startQzBut = document.getElementById('startQz')
+var homeTitle = document.getElementById('title')
+var homeInfo = document.getElementById('info')
+var newQstnBox = document.getElementById('questionsBox')
+var questionEl = document.getElementById('questions')
+var finishedQz = document.getElementById('done')
+
+var opt1 = document.getElementById('but1')
+var opt2 = document.getElementById('but2')
+var opt3 = document.getElementById('but3')
+var opt4 = document.getElementById('but4')
+var answrcheck = document.getElementById('check')
+var final = document.getElementById('finalScore')
+var highScore = document.getElementById('highScore')
+var listOfhigh = document.getElementById('listOf')
+var viewHs = document.getElementById('viewScore')
+var back = document.getElementById('goBack')
+var clear = document.getElementById('clearHi')
+var timeRemain = document.getElementById('timer_sec')
+
+var correctpoint = 0;
+var questionNum = 0;
+var quesIndex = 0;
+
+var submitBtn = document.getElementById('subBut')
+var initialIn = document.getElementById('initInput')
+
 var quests = [
     {
         ques: "Commonly used data types DO NOT include: ",
@@ -30,32 +57,8 @@ var quests = [
     },
 ];
 
-var startQzBut = document.getElementById('startQz')
-var homeTitle = document.getElementById('title')
-var homeInfo = document.getElementById('info')
-var newQstnBox = document.getElementById('questionsBox')
-var questionEl = document.getElementById('questions')
-var finishedQz = document.getElementById('done')
 
-var opt1 = document.getElementById('but1')
-var opt2 = document.getElementById('but2')
-var opt3 = document.getElementById('but3')
-var opt4 = document.getElementById('but4')
-var answrcheck = document.getElementById('check')
-var final = document.getElementById('finalScore')
-
-var correctpoint = 0;
-var questionNum = 0;
-var quesIndex = 0;
-
-var submitBtn = document.getElementById('subBut')
-var initialIn = document.getElementById('initInput')
-
-startQzBut.addEventListener('click', startQuiz)
-opt1.addEventListener('click', chose1) ;
-opt2.addEventListener('click', chose2) ;
-opt3.addEventListener('click', chose3) ;
-opt4.addEventListener('click', chose4) ;
+var totalTime = 75;
 
 function startQuiz() {
     quesIndex = 0;
@@ -64,9 +67,24 @@ function startQuiz() {
     homeTitle.classList.add('hide')
     homeInfo.classList.add('hide')
 
+    totalTime = 75;
+    timeRemain.textContent=totalTime;
+    
+    var startTimer = setInterval(function() {
+        totalTime--;
+        timeRemain.textContent = totalTime;
+        if(totalTime <=0) {
+            clearInterval(startTimer);
+            if (quesIndex < quests.length - 1) {
+                doneQuiz();
+            }
+        }
+
+    },1500);
+
     newQstnBox.classList.remove('hide')
     nextQues()
-}
+};
 
 function nextQues() {
 
@@ -85,6 +103,8 @@ function checkAn(answer) {
         answrcheck.textContent = "Correct!";
     }
     else {
+        totalTime -=25;
+        timeRemain.textContent = totalTime;
         answrcheck.textContent = "Wrong!";
     }
 
@@ -109,3 +129,80 @@ function doneQuiz() {
     newQstnBox.classList.add('hide')
     final.textContent = correctpoint;
 }
+
+function storeHigh(event) {
+    event.preventDefault();
+    if (initialIn.value === "") {
+        alert("Please enter initials in form. ");
+        return;
+    }
+    highScore.classList.remove('hide')
+    var savedhighScore = localStorage.getItem("highscores");
+    var scoreRay;
+    if (savedhighScore === null) {
+        scoreRay = [];
+    }
+    else {
+        scoreRay = JSON.parse(savedhighScore)
+    }
+    var user = {
+        initials: initialIn.value,
+        score: final.textContent
+    };
+    console.log(user);
+    scoreRay.push(user);
+    var scoreString = JSON.stringify(scoreRay);
+    window.localStorage.setItem("highscores", scoreString);
+    showHigh();
+}
+
+function showHigh () {
+    finishedQz.classList.add('hide')
+    highScore.classList.remove('hide')
+
+    var savedhighScore = localStorage.getItem('highscores');
+
+    if (savedhighScore === null) {
+        return;
+    }
+    console.log(savedhighScore);
+
+    var storedScore = JSON.parse(savedhighScore);
+
+    for (var i = 0; i < storedScore.length; i++) {
+        var eachScore = document.createElement('p');
+        eachScore.innerHTML = storedScore[i].initials + ": " + storedScore[i].score;
+        listOfhigh.appendChild(eachScore);
+    }
+}
+
+startQzBut.addEventListener('click', startQuiz)
+opt1.addEventListener('click', chose1) ;
+opt2.addEventListener('click', chose2) ;
+opt3.addEventListener('click', chose3) ;
+opt4.addEventListener('click', chose4) ;
+
+submitBtn.addEventListener('click', function(event){
+    storeHigh(event);
+});
+
+viewHs.addEventListener("click", function(event) {
+    showHigh(event);
+    homeTitle.classList.add('hide')
+    homeInfo.classList.add('hide')
+    startQzBut.classList.add('hide')
+    newQstnBox.classList.add('hide')
+
+});
+
+back.addEventListener("click", function() {
+    homeTitle.classList.remove('hide')
+    homeInfo.classList.remove('hide')
+    startQzBut.classList.remove('hide')
+    highScore.classList.add('hide')
+});
+
+clear.addEventListener("click", function(){
+    window.localStorage.removeItem("highscores");
+    listOfhigh.innerHTML = "Scores Cleared";
+});

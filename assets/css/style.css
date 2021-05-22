@@ -59,12 +59,24 @@
     width: 540px;
 }
 
-.hide {
-    display: none;
-}
-
-.timer {
+#timer {
     text-align: right;
     float: right;
     display: inline;
+}
+
+#done {
+    margin: auto;
+    text-align: center;
+    width: 540px;
+}
+
+#highScore {
+    margin: auto;
+    text-align: center;
+    width: 540px;
+}
+
+.hide {
+    display: none;
 }
